@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nabila Ahmad Place Market</title>
+    <style>
+        /* CSS Dasar */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            overflow-x: hidden; /* Mencegah scroll horizontal */
+        }
+        .header {
+            background-color: #333;
+            color: white;
+            padding: 15px 20px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 1000;
+        }
+        .notification-bar {
+            background-color: #ffcc00;
+            color: #333;
+            padding: 10px 20px;
+            text-align: center;
+            overflow: hidden;
+            white-space: nowrap;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 999;
+        }
+        .notification-text {
+            display: inline-block;
+            animation: marquee 30s linear infinite; /* Animasi berjalan */
+        }
+        @keyframes marquee {
+            0%   { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .hamburger-menu {
+            display: none; /* Sembunyikan secara default */
+            font-size: 30px;
+            cursor: pointer;
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            z-index: 1001;
+        }
+        .nav-sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1002;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+        }
+        .nav-sidebar a {
+            padding: 15px 20px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+        }
+        .nav-sidebar a:hover {
+            color: #f1f1f1;
+            background-color: #575757;
+        }
+        .nav-sidebar .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
+        .main-content {
+            padding: 20px;
+            margin-top: 20px;
+        }
+        .category-section {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .category-section h2 {
+            color: #333;
+            border-bottom: 2px solid #ffcc00;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .product-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            position: relative;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+        }
+        .product-card h3 {
+            margin: 0;
+            color: #007bff;
+        }
+        .product-card p {
+            margin: 0;
+            font-size: 0.9em;
+            color: #555;
+        }
+        .product-card .price {
+            font-weight: bold;
+            color: #28a745;
+            font-size: 1.1em;
+        }
+        .product-card .add-to-cart {
+            background-color: #28a745;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .product-card .add-to-cart:hover {
+            background-color: #218838;
+        }
+        .gopay-section {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #e6ffe6;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .gopay-qr-placeholder {
+            width: 200px;
+            height: 200px;
+            background-color: #eee;
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed #ccc;
+            color: #888;
+            font-style: italic;
+        }
+
+        /* Responsive untuk Android (Mobile-first) */
+        @media (max-width: 768px) {
+            .hamburger-menu {
+                display: block; /* Tampilkan menu hamburger di perangkat kecil */
+            }
+            .header h1 {
+                margin-left: 60px; /* Geser judul agar tidak menutupi hamburger */
+            }
+            .notification-bar {
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <span class="hamburger-menu" onclick="openNav()">&#9776;</span>
+        <h1>Nabila Ahmad Place Market</h1>
+    </div>
+
+    <div class="notification-bar">
+        <span class="notification-text">
+            Selamat datang di Nabila Ahmad Place Market! Kami menyediakan berbagai produk unggulan untuk kebutuhan Anda.
+            Produk digital, elektronik, fashion, kuliner, jasa, dan sembako.
+            Checkout otomatis ke WhatsApp admin 085810526151.
+            Pembayaran mudah dengan GoPay 0895340205302.
+            Nikmati keunggulan berbelanja di tempat kami!
+        </span>
+    </div>
+
+    <div id="mySidebar" class="nav-sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="#home">Home</a>
+        <a href="#elektronik">Elektronik</a>
+        <a href="#jasa">JASA</a>
+        <a href="#kuliner">Kuliner</a>
+        <a href="#script">Script</a>
+        <a href="#fashion">Fashion</a>
+        <a href="#sembako">Sembako</a>
+        <a href="#topup-game">Topup Game</a>
+        <a href="#produk-digital">Produk Digital</a>
+        <a href="#payment">Pembayaran</a>
+        <a href="#contact">Kontak Admin</a>
+    </div>
+
+    <div class="main-content">
+        <section id="home" class="category-section">
+            <h2>Selamat Datang!</h2>
+            <p>Temukan berbagai penawaran menarik di Nabila Ahmad Place Market. Kami berkomitmen untuk memberikan pengalaman belanja terbaik untuk Anda. Cek menu di samping untuk melihat kategori produk kami.</p>
+            <p><b>Informasi Developer:</b> Nabila Ahmad - Menghadirkan kemudahan belanja online.</p>
+            <p><b>Keunggulan Kami:</b> Produk berkualitas, harga bersaing, layanan cepat, dan checkout mudah langsung ke WhatsApp admin.</p>
+        </section>
+
+        <section id="elektronik" class="category-section">
+            <h2>Elektronik</h2>
+            <p>Temukan gadget dan perangkat elektronik terbaru di sini!</p>
+            <!-- Contoh tempat menempel produk Elektronik -->
+            <div class="product-card">
+                <h3>Smartphone Android Terbaru</h3>
+                <p>Jenis Produk: Handphone</p>
+                <p class="price">Harga Satuan: Rp 3.500.000</p>
+                <p>Deskripsi: Smartphone canggih dengan kamera 48MP dan baterai tahan lama. Cocok untuk kebutuhan sehari-hari.</p>
+                <!-- Tempat embed/frame super mewah -->
+                <div style="width: 100%; height: 250px; background-color: #f0f8ff; border: 1px solid #add8e6; display: flex; align-items: center; justify-content: center; font-style: italic; color: #6a5acd;">
+                    [Tempat untuk menempel link embed atau iframe gambar/video produk Elektronik]
+                </div>
+                <a href="https://wa.me/6285810526151?text=Saya%20tertarik%20dengan%20Smartphone%20Android%20Terbaru%20-%20Rp%203.500.000" class="add-to-cart">Checkout via WhatsApp</a>
+            </div>
+            <!-- Tambahkan produk Elektronik lainnya di sini -->
+            <div class="product-card">
+                <h3>Headphone Bluetooth Premium</h3>
+                <p>Jenis Produk: Aksesoris Audio</p>
+                <p class="price">Harga Satuan: Rp 750.000</p>
+                <p>Deskripsi: Headphone nirkabel dengan kualitas suara jernih dan nyaman digunakan.</p>
+                <div style="width: 100%; height: 250px; background-color: #f0f8ff; border: 1px solid #add8e6; display: flex; align-items: center; justify-content: center; font-style: italic; color: #6a5acd;">
+                    [Tempat untuk menempel link embed atau iframe gambar/video produk Headphone]
+                </div>
+                <a href="https://wa.me/6285810526151?text=Saya%20tertarik%20dengan%20Headphone%20Bluetooth%20Premium%20-%20Rp%20750.000" class="add-to-cart">Checkout via WhatsApp</a>
+            </div>
+        </section>
+
+        <section id="jasa" class="category-section">
+            <h2>JASA</h2>
+            <p>Berbagai layanan digital untuk kebutuhan Anda.</p>
+            <!-- Contoh tempat menempel produk JASA -->
+            <div class="product-card">
+                <h3>Jasa Tambah View YouTube</h3>
+                <p>Jenis Produk: Jasa Digital (Youtube)</p>
+                <p class="price">Harga Satuan: Mulai Rp 50.000</p>
+                <p>Deskripsi: Tingkatkan jumlah view video YouTube Anda secara organik dan aman. Hubungi admin untuk detail paket.</p>
+                <div style="width: 100%; height: 250px; background-color: #fffacd; border: 1px solid #deb887; display: flex; align-items: center; justify-content: center; font-style: italic; color: #a0522d;">
+                    [https://nyket5drqz3pc3sr.public.blob.vercel-storage.com/youtube%20view]
+                </div>
+                <a href="https://wa.me/6285810526151?text=Saya%20tertarik%20dengan%20Jasa%20Tambah%20View%20YouTube" class="add-to-cart">Checkout via WhatsApp</a>
+            </div>
+            <div class="product-card">
+                <h3>Unbanned WhatsApp Permanent</h3>
+                <p>Jenis Produk: Jasa Digital (WhatsApp)</p>
+                <p class="price">Harga Satuan: Rp 200.000</p>
+                <p>Deskripsi: Bantuan untuk mengaktifkan kembali akun WhatsApp Anda yang dibanned secara permanen. Proses cepat dan terpercaya.</p>
+                <div style="width: 100%; height: 250px; background-color: #fffacd; border: 1px solid #deb887; display: flex; align-items: center; justify-content: center; font-style: italic; color: #a0522d;">
+                    [Tempat untuk menempel link embed atau iframe gambar/video Jasa Unbanned WhatsApp]
+                </div>
+                <a href="https://wa.me/6285810526151?text=Saya%20tertarik%20dengan%20Jasa%20Unbanned%20WhatsApp%20Permanent%20-%20Rp%20200.000" class="add-to-cart">Checkout via WhatsApp</a>
+            </div>
+            <!-- Tambahkan produk JASA lainnya di sini -->
+        </section>
+
+        <section id="kuliner" class="category-section">
+            <h2>Kuliner</h2>
+            <p>Nikmati hidangan lezat dan minuman segar dari kami.</p>
+            <!-- Contoh tempat menempel produk Kuliner -->
+            <div class="product-card">
+                <h3>Nasi Goreng Spesial</h3>
+                <p>Jenis Produk: Makanan</p>
+                <p class="price">Harga Satuan: Rp 25.000</p>
+                <p>Deskripsi: Nasi goreng dengan bumbu rahasia, telur, ayam, dan irisan bakso. Pedasnya bisa disesuaikan!</p>
+                <div style="width: 100%; height: 250px; background-color: #fff0f5; border: 1px solid #ffb6c1; display: flex; align-items: center; justify-content: center; font-style: italic; color: #cd5c5c;">
+                    [Tempat untuk menempel link embed atau iframe gambar/video produk Kuliner]
+                </div>
+                <a href="https://wa.me/6285810526151?text=Saya%20tertarik%20dengan%20Nasi%20Goreng%20Spesial%20-%20Rp%2025.000" class="add-to-cart">Checkout via WhatsApp</a>
+            </div>
+            <!-- Tambahkan produk Kuliner lainnya di sini -->
+        </section>
+
+        <section id="script" class="category-section">
+            <h2>Script (Termux atau Website)</h2>
+            <p>Kumpulan script bermanfaat untuk berbagai kebutuhan.</p>
+            <!-- Contoh tempat menempel produk Script -->
+            <div class="product-card">
+                <h3>Script Auto Follow Instagram</h3>
+                <p>Jenis Produk: Script Termux</p>
+                <p class="price">Harga Satuan: Rp 150.000</p>
+                <p>Deskripsi: Script Python untuk otomatisasi follow akun Instagram melalui Termux. Dilengkapi panduan penggunaan.</p>
+                <div style="width: 100%; height: 250px; background-color: #f5fffa; border: 1px solid #98fb98; display: flex; align-items: center; justify-content: center; font-style: italic; color: #3cb371;">
+                    [Tempat untuk menempel link embed atau iframe gambar/video produk Script]
+                </div>
+                <a href="https://wa.me/6285810526151?text=Saya%20tertarik%20dengan%20Script%20Auto%20Follow%20Instagram%20-%20Rp%20150.000" class="add-to-cart">Checkout via WhatsApp</a>
+            </div>
+            <!-- Tambahkan produk Script lainnya di sini -->
+        </section>
+
+        <section id="fashion" class="category-section">
+            <h2>Fashion</h2>
+            <p>Tampil trendi dengan koleksi fashion terbaru kami.</p>
+            <!-- Contoh tempat menempel produk Fashion -->
+            <div class="product-card">
+                <h3>Kemeja Casual Pria</h3>
+                <p>Jenis Produk: Baju</p>
+                <p class="price">Harga Satuan: Rp 180.000</p>
+                <p>Deskripsi: Kemeja katun berkualitas tinggi, nyaman dipakai, tersedia berbagai ukuran dan warna.</p>
+                <div style="width: 100%; height: 250px; background-color: #f8f8ff; border: 1px solid #e6e6fa; display: flex; align-items: center; justify-content: center; font-style: italic; color: #6a5acd;">
+                    [Tempat untuk menempel link embed atau iframe gambar/video produk Fashion]
+                </div>
+                <a href="https://wa.me/6285810526151?text=Saya%20tertarik%20dengan%20Kemeja%20Casual%20Pria%20-%20Rp%20180.000" class="add-to-cart">Checkout via WhatsApp</a>
+            </div>
+            <div class="product-card">
+                <h3>Sepatu Sneakers Wanita</h3>
+                <p>Jenis Produk: Sepatu</p>
+                <p class="price">Harga Satuan: Rp 320.000</p>
+                <p>Deskripsi: Sepatu sneakers stylish dan nyaman, cocok untuk aktivitas sehari-hari. Tersedia ukuran 36-40.</p>
+                <div style="width: 100%; height: 250px; background-color: #f8f8ff; border: 1px solid #e6e6fa; display: flex; align-items: center; justify-content: center; font-style: italic; color: #6a5acd;">
+                    [Tempat untuk menempel link embed atau iframe gambar/video produk Sepatu]
+                </div>
+                <a href="https://wa.me/6285810526151?text=Saya%20tertarik%20dengan%20Sepatu%20Sneakers%20Wanita%20-%20Rp%20320.000" class="add-to-cart">Checkout via WhatsApp</a>
+            </div>
+            <!-- Tambahkan produk Fashion lainnya di sini -->
+        </section>
+
+        <section id="sembako" class="category-section">
+            <h2>Sembako</h2>
+            <p>Penuhi kebutuhan dapur Anda dengan sembako berkualitas.</p>
+            <!-- Contoh tempat menempel produk Sembako -->
+            <div class="product-card">
+                <h3>Beras Premium 5kg</h3>
+                <p>Jenis Produk: Makanan Pokok</p>
+                <p class="price">Harga Satuan: Rp 65.000</p>
+                <p>Deskripsi: Beras pulen berkualitas tinggi, bersih, dan cocok untuk keluarga.</p>
+                <div style="width: 100%; height: 250px; background-color: #f0f8ff; border: 1px solid #add8e6; display: flex; align-items: center; justify-content: center; font-style: italic; color: #6a5acd;">
+                    [Tempat untuk menempel link embed atau iframe gambar/video produk Sembako]
+                </div>
+                <a href="https://wa.me/6285810526151?text=Saya%20tertarik%20dengan%20Beras%20Premium%205kg%20-%20Rp%2065.000" class="add-to-cart">Checkout via WhatsApp</a>
+            </div>
+            <!-- Tambahkan produk Sembako lainnya di sini -->
+        </section>
+
+        <section id="topup-game" class="category-section">
+            <h2>Topup Game</h2>
+            <p>Isi ulang diamond/coin game favorit Anda dengan mudah.</p>
+            <!-- Contoh tempat menempel produk Topup Game -->
+            <div class="product-card">
+                <h3>Diamond Mobile Legend 1000 DM</h3>
+                <p>Jenis Produk: Topup Game</p>
+                <p class="price">Harga Satuan: Rp 250.000</p>
+                <p>Deskripsi: Isi ulang 1000 Diamond Mobile Legend. Proses cepat, cukup kirim ID game Anda.</p>
+                <div style="width: 100%; height: 250px; background-color: #f0fff0; border: 1px solid #90ee90; display: flex; align-items: center; justify-content: center; font-style: italic; color: #2e8b57;">
+                    [Tempat untuk menempel link embed atau iframe gambar/video Topup Mobile Legend]
+                </div>
+                <a href="https://wa.me/6285810526151?text=Saya%20tertarik%20dengan%20Diamond%20Mobile%20Legend%201000%20DM%20-%20Rp%20250.000" class="add-to-cart">Checkout via WhatsApp</a>
+            </div>
+            <div class="product-card">
+                <h3>Diamond Free Fire 500 DM</h3>
+                <p>Jenis Produk: Topup Game</p>
+                <p class="price">Harga Satuan: Rp 100.000</p>
+                <p>Deskripsi: Isi ulang 500 Diamond Free Fire. Proses instan setelah pembayaran terverifikasi.</p>
+                <div style="width: 100%; height: 250px; background-color: #f0fff0; border: 1px solid #90ee90; display: flex; align-items: center; justify-content: center; font-style: italic; color: #2e8b57;">
+                    [Tempat untuk menempel link embed atau iframe gambar/video Topup Free Fire]
+                </div>
+                <a href="https://wa.me/6285810526151?text=Saya%20tertarik%20dengan%20Diamond%20Free%20Fire%20500%20DM%20-%20Rp%20100.000" class="add-to-cart">Checkout via WhatsApp</a>
+            </div>
+            <!-- Tambahkan produk Topup Game lainnya di sini -->
+        </section>
+
+        <section id="produk-digital" class="category-section">
+            <h2>Produk Digital</h2>
+            <p>Berbagai akun siap pakai untuk kebutuhan Anda.</p>
+            <!-- Contoh tempat menempel produk Digital -->
+            <div class="product-card">
+                <h3>Akun Facebook Fresh (Sudah Verifikasi)</h3>
+                <p>Jenis Produk: Akun Digital</p>
+                <p class="price">Harga Satuan: Rp 75.000</p>
+                <p>Deskripsi: Akun Facebook baru, sudah diverifikasi email/nomor telepon, siap pakai untuk berbagai keperluan.</p>
+                <div style="width: 100%; height: 250px; background-color: #fdf5e6; border: 1px solid #ffe4b5; display: flex; align-items: center; justify-content: center; font-style: italic; color: #cd853f;">
+                    [Tempat untuk menempel link embed atau iframe gambar/video produk Digital]
+                </div>
+                <a href="https://wa.me/6285810526151?text=Saya%20tertarik%20dengan%20Akun%20Facebook%20Fresh%20-%20Rp%2075.000" class="add-to-cart">Checkout via WhatsApp</a>
+            </div>
+            <div class="product-card">
+                <h3>Akun Gmail Fresh (Baru Dibuat)</h3>
+                <p>Jenis Produk: Akun Digital</p>
+                <p class="price">Harga Satuan: Rp 30.000</p>
+                <p>Deskripsi: Akun Gmail baru, siap digunakan, tidak terikat aktivitas sebelumnya. Cocok untuk pendaftaran.</p>
+                <div style="width: 100%; height: 250px; background-color: #fdf5e6; border: 1px solid #ffe4b5; display: flex; align-items: center; justify-content: center; font-style: italic; color: #cd853f;">
+                    [Tempat untuk menempel link embed atau iframe gambar/video produk Digital]
+                </div>
+                <a href="https://wa.me/6285810526151?text=Saya%20tertarik%20dengan%20Akun%20Gmail%20Fresh%20-%20Rp%2030.000" class="add-to-cart">Checkout via WhatsApp</a>
+            </div>
+            <!-- Tambahkan produk Digital lainnya di sini -->
+        </section>
+
+        <section id="payment" class="category-section gopay-section">
+            <h2>Metode Pembayaran</h2>
+            <p>Lakukan pembayaran mudah melalui GoPay.</p>
+            <p>Nomor GoPay: <b>0895340205302</b></p>
+            <h3>Scan QR Code di Bawah Ini untuk Pembayaran GoPay:</h3>
+            <div class="gopay-qr-placeholder">
+                <p>https://nyket5drqz3pc3sr.public.blob.vercel-storage.com/nabila%20store%20asset/Gopay%20Qr</p>
+                <!-- Tempelkan kode gambar QR GoPay Anda di sini, contoh: -->
+                <!-- <img src="link_gambar_qr_gopay_anda.png" alt="QR GoPay" style="max-width: 100%; height: auto;"> -->
+            </div>
+            <p>Setelah pembayaran, harap konfirmasi ke admin via WhatsApp dengan menyertakan bukti transfer.</p>
+        </section>
+
+        <section id="contact" class="category-section">
+            <h2>Kontak Admin</h2>
+            <p>Untuk pertanyaan, pesanan khusus, atau bantuan, hubungi admin kami:</p>
+            <p><b>WhatsApp Admin:</b> <a href="https://wa.me/6285810526151" target="_blank">085810526151</a></p>
+            <p>Kami siap melayani Anda!</p>
+        </section>
+
+    </div>
+
+    <script>
+        function openNav() {
+            document.getElementById("mySidebar").style.width = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidebar").style.width = "0";
+        }
+
+        // Smooth scrolling untuk link di sidebar
+        document.querySelectorAll('.nav-sidebar a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+                closeNav(); // Tutup sidebar setelah klik
+            });
+        });
+    </script>
+
+</body>
+</html>
